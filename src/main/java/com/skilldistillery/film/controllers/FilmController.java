@@ -21,7 +21,7 @@ public class FilmController {
 
 	}
 
-	@RequestMapping(path = { "GetFilmData.do" }, params = "id", method = RequestMethod.GET)
+	@RequestMapping(path = { "film.do" }, params = "id", method = RequestMethod.GET)
 	public ModelAndView getFilmById(@RequestParam("id") String input) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("WEB-INF/singlefilm.jsp");
@@ -29,6 +29,7 @@ public class FilmController {
 		return modelAndView;
 	}
 
+	
 	public DatabaseAccessor getDao() {
 		return dao;
 	}

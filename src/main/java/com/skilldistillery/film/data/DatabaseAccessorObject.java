@@ -94,8 +94,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					+ "FROM film JOIN film_actor on film_actor.film_id = film.id "
 					+ "JOIN actor on film_actor.actor_id = actor.id "
 					+ "JOIN film_category on film.id = film_category.film_id JOIN category on film_category.category_id = category.id "
-					+ "JOIN language ON film.language_id = language.id "
-					+ "WHERE film.id = ?";
+					+ "JOIN language ON film.language_id = language.id " + "WHERE film.id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sqlStaement);
 			preparedStatement.setInt(1, filmId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -427,37 +426,37 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
-	public Film createFilm(Film inputFilm) {
+	public Film createFilm(Film film) {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn.setAutoCommit(false); // START TRANSACTION
 			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, "
-					+ "rental_rate, length, replacement_cost, special_features) " + "VALUES(?,?,?,?,?,?,?,?,?)";
+					+ "rental_rate, length, replacement_cost) " + "VALUES(?,?,?,?,?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, inputFilm.getTitle());
-			stmt.setString(2, inputFilm.getDescription());
-			stmt.setLong(3, inputFilm.getReleaseYear());
-			stmt.setLong(4, inputFilm.getLangId());
-			stmt.setLong(5, inputFilm.getRentalDuration());
-			stmt.setDouble(6, inputFilm.getRate());
-			stmt.setLong(7, inputFilm.getLength());
-			stmt.setDouble(8, inputFilm.getReplacementCost());
-			stmt.setString(9, inputFilm.getSpecialFeatures());
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setLong(3, film.getReleaseYear());
+			stmt.setLong(4, film.getLangId());
+			stmt.setLong(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRate());
+			stmt.setLong(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+//			stmt.setString(9, inputFilm.getSpecialFeatures());
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
 				if (keys.next()) {
 					int newFilmId = keys.getInt(1);
-					inputFilm.setFilmId(newFilmId);
+					film.setFilmId(newFilmId);
 
 					// call actors getfilm method, if not null and getfilm.size is greater than 0
-					if (inputFilm.getCast() != null && inputFilm.getCast().size() > 0) {
+					if (film.getCast() != null && film.getCast().size() > 0) {
 						// for insert statement
 						sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
 						stmt = conn.prepareStatement(sql);
 						// get the ids of any films on actor list and add tp to the film_actor table
-						for (Actor actor : inputFilm.getCast()) {
+						for (Actor actor : film.getCast()) {
 							stmt.setInt(1, actor.getId());
 							stmt.setInt(2, newFilmId);
 							updateCount = stmt.executeUpdate();
@@ -465,7 +464,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					}
 				}
 			} else {
-				inputFilm = null;
+				film = null;
 			}
 			conn.commit();
 			// COMMIT TRANSACTION
@@ -478,7 +477,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting actor " + inputFilm);
+			throw new RuntimeException("Error inserting Film " + film);
 		}
 		try {
 			if (!conn.isClosed()) {
@@ -487,7 +486,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return inputFilm;
+		return film;
 	}
 
 	@Override
@@ -496,7 +495,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn.setAutoCommit(false); // START TRANSACTION
-			String sql = "UPDATE actor SET first_name=?, last_name=? " + " WHERE id=?";
+			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?, "
+					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=? WHEERE id=?";
+			
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -506,7 +507,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setDouble(6, film.getRate());
 			stmt.setLong(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
-			stmt.setString(9, film.getSpecialFeatures());
+//			stmt.setString(9, film.getSpecialFeatures());
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				// Replace actor's film list

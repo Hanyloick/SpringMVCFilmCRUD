@@ -15,6 +15,18 @@
     ID:
     <input type="text" name="id"/> 
     <input type="submit" value="Get Film Data" />
-  </form>
+  	</form>
+  	<form action="film.do" method="POST">
+  	ADD A Film
+  	<input type="text" name="title">
+  	<input type="text" name="description"> 
+  	<input type="text" name="releaseYear">
+  	<input type="text" name="langId" >
+  	<input type="text" name="rate">
+  	<input type="text" name="length">
+  	<input type="text" name="rentalDuration">
+  	<input type="text" name="replacementCost"> 
+					 
+  	</form>
 </body>
 </html>
