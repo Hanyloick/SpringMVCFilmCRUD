@@ -25,6 +25,6 @@
 			<p>No film found</p>
 		</c:otherwise>
 	</c:choose>
-	<a href="home.do">back home</a>
+	<a href="index.html">back home</a>
 </body>
 </html>
