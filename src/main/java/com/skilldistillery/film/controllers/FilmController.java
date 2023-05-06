@@ -78,6 +78,20 @@ public class FilmController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(path = "filmDelete.do", method = RequestMethod.POST)
+	public ModelAndView filmDelete(@RequestParam("delete") int filmId, RedirectAttributes redir) {
+		ModelAndView modelAndView = new ModelAndView();
+		dao.deleteFilm(filmId);
+		//redir.addFlashAttribute("film", film);
+		modelAndView.setViewName("redirect:filmDeleted.do");
+		return modelAndView;
+	}
+	@RequestMapping(path = "filmDeleted.do", method = RequestMethod.GET)
+	public ModelAndView filmDeleted() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("WEB-INF/deletefilm.jsp");
+		return modelAndView;
+	}
 	
 	
 	

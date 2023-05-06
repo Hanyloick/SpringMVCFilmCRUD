@@ -30,6 +30,6 @@ public interface DatabaseAccessor {
 	
 	public boolean saveFilm(int filmId, Film film);
 	
-	public boolean deleteFilm(int filmId, Film film);
+	public boolean deleteFilm(int filmId);
 
 }
