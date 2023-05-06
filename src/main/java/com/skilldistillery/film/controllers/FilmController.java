@@ -22,7 +22,9 @@ public class FilmController {
 		return "WEB-INF/home.jsp";
 
 	}
-
+	
+	
+	
 	@RequestMapping(path = { "film.do" }, params = "id", method = RequestMethod.GET)
 	public ModelAndView getFilmById(@RequestParam("id") String input) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -32,7 +34,7 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "film.do", method = RequestMethod.POST)
-	public ModelAndView newState(Film film, RedirectAttributes redir) {
+	public ModelAndView newFilm(Film film, RedirectAttributes redir) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -47,11 +49,43 @@ public class FilmController {
 	
 	@RequestMapping(path = "filmAdded.do",
 			method = RequestMethod.GET)
-	public ModelAndView stateAdded() {
+	public ModelAndView filmAdded() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("WEB-INF/singlefilm.jsp");
 		return modelAndView;
 	}
+	
+	@RequestMapping(path = "editfilm.do", method = RequestMethod.POST)
+	public ModelAndView editFilm(@RequestParam("edit") Film film, RedirectAttributes redir) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+
+		dao.saveFilm(film.getFilmId(), film);
+		
+		redir.addFlashAttribute("film", film);
+		
+		modelAndView.setViewName("redirect:filmEdited.do"); 
+		// redirect to new mapping
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(path = "filmEdited.do",
+			method = RequestMethod.GET)
+	public ModelAndView filmEdited() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("WEB-INF/editfilm.jsp");
+		return modelAndView;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public DatabaseAccessor getDao() {
 		return dao;

@@ -32,8 +32,8 @@
   	<input type="text" name="rentalDuration"> -->
   	replacecost
   	<input type="text" name="replacementCost"> 
-  	<input type="submit" name="Get Film Data">
-					 
+  	<input type="submit" name="Get Film Data">					 
   	</form>
+  	<a href="film.do" name=edit>edit a film</a>
 </body>
 </html>
