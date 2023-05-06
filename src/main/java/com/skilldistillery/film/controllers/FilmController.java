@@ -56,7 +56,7 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "editfilm.do", method = RequestMethod.POST)
-	public ModelAndView editFilm(@RequestParam("edit") Film film, RedirectAttributes redir) {
+	public ModelAndView editFilm(Film film, RedirectAttributes redir) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 

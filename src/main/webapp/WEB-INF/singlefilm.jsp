@@ -14,11 +14,13 @@
 		<c:when test="${! empty film}">
 			<ul>
 				<li>${film.title}</li>
-				<li>${film.category}</li>
 				<li>${film.rating}</li>
-				<li>${film.language}</li>
 				<li>${film.description}</li>
-				<li>${film.cast}</li>
+				<li>${film.releaseYear}</li>
+				<li>${film.length}</li>
+				<li>${film.replacementCost}</li>
+				<li>${film.langId}</li>
+				
 			</ul>
 		</c:when>
 		<c:otherwise>
@@ -26,5 +28,6 @@
 		</c:otherwise>
 	</c:choose>
 	<a href="index.html">back home</a>
+	<a href="editfilm.html">edit film</a>
 </body>
 </html>

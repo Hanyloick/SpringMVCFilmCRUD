@@ -516,11 +516,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				// Replace actor's film list
-				sql = "DELETE FROM film_actor WHERE film_id = ?";
+			
 				stmt = conn.prepareStatement(sql);
 				stmt.setInt(1, film.getFilmId());
 				updateCount = stmt.executeUpdate();
-				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+			
 				stmt = conn.prepareStatement(sql);
 				for (Actor actor : film.getCast()) {
 					stmt.setInt(1, actor.getId());
