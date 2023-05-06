@@ -437,9 +437,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setLong(3, film.getReleaseYear());
-			stmt.setLong(4, film.getLangId());
-			stmt.setLong(5, film.getRentalDuration());
-			stmt.setDouble(6, film.getRate());
+			stmt.setLong(4, 1);
+			stmt.setLong(5, 3);
+			stmt.setDouble(6, 5);
 			stmt.setLong(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
 //			stmt.setString(9, inputFilm.getSpecialFeatures());
@@ -450,12 +450,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					int newFilmId = keys.getInt(1);
 					film.setFilmId(newFilmId);
 
-					// call actors getfilm method, if not null and getfilm.size is greater than 0
+					// call film getcast method, if not null and getcast.size is greater than 0
 					if (film.getCast() != null && film.getCast().size() > 0) {
 						// for insert statement
 						sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
 						stmt = conn.prepareStatement(sql);
-						// get the ids of any films on actor list and add tp to the film_actor table
+						// get the ids of any actors on film list and add tp to the film_actor table
 						for (Actor actor : film.getCast()) {
 							stmt.setInt(1, actor.getId());
 							stmt.setInt(2, newFilmId);
@@ -496,7 +496,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn.setAutoCommit(false); // START TRANSACTION
 			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?, "
-					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=? WHEERE id=?";
+					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=? WHERE id=?";
 			
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, film.getTitle());
@@ -511,7 +511,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				// Replace actor's film list
-				sql = "DELETE FROM film_actor WHERE actor_id = ?";
+				sql = "DELETE FROM film_actor WHERE film_id = ?";
 				stmt = conn.prepareStatement(sql);
 				stmt.setInt(1, film.getFilmId());
 				updateCount = stmt.executeUpdate();

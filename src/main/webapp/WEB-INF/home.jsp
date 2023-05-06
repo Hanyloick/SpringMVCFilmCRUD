@@ -18,14 +18,21 @@
   	</form>
   	<form action="film.do" method="POST">
   	ADD A Film
+  	title
   	<input type="text" name="title">
-  	<input type="text" name="description"> 
+  	desc
+  	<input type="text" name="description">
+  	releaseyear number 
   	<input type="text" name="releaseYear">
-  	<input type="text" name="langId" >
+  	<!-- rate number
   	<input type="text" name="rate">
+  	length number
   	<input type="text" name="length">
-  	<input type="text" name="rentalDuration">
+  	rentduration
+  	<input type="text" name="rentalDuration"> -->
+  	replacecost
   	<input type="text" name="replacementCost"> 
+  	<input type="submit" name="Get Film Data">
 					 
   	</form>
 </body>
