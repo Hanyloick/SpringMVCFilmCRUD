@@ -90,7 +90,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		try {
 			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			String sqlStaement = "SELECT * FROM film WHERE film.id = ?";
+			String sqlStaement = "SELECT film.*, language.name, actor.*, category.name "
+					+ "FROM film JOIN film_actor on film_actor.film_id = film.id "
+					+ "JOIN actor on film_actor.actor_id = actor.id "
+					+ "JOIN film_category on film.id = film_category.film_id JOIN category on film_category.category_id = category.id "
+					+ "JOIN language ON film.language_id = language.id "
+					+ "WHERE film.id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sqlStaement);
 			preparedStatement.setInt(1, filmId);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -107,8 +112,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				double replacementCost = resultSet.getDouble("replacement_cost");
 				String rating = resultSet.getString("rating");
 				String specialFeatures = resultSet.getString("special_features");
+				String language = resultSet.getString("language.name");
+				List<Actor> cast = findActorsByFilmId(id);
+				String category = resultSet.getString("category.name");
 				film = new Film(id, title, descritpion, releaseYear, languageId, rentDur, rentalRate, length,
-						replacementCost, rating, specialFeatures);
+						replacementCost, rating, specialFeatures, language, cast, category);
+
 			}
 			resultSet.close();
 			preparedStatement.close();

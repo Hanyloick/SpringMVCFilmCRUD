@@ -11,5 +11,10 @@
 </head>
 <body>
 	<h1>Spring MVC Film Site</h1>
+	 <form action="film.do" method="GET">
+    ID:
+    <input type="text" name="id"/> 
+    <input type="submit" value="Get Film Data" />
+  </form>
 </body>
 </html>
