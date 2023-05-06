@@ -27,6 +27,7 @@ public class Film {
 	
 	public Film(String title, String desc, short releaseYear, int langId, int rentDur, double rate,
 			int length, double repCost, String rating, String features) {
+		super();
 		this.title = title;
 		this.description = desc;
 		this.releaseYear = releaseYear;

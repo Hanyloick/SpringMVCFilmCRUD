@@ -24,14 +24,16 @@
   	<input type="text" name="description">
   	releaseyear number 
   	<input type="text" name="releaseYear">
-  	<!-- rate number
+  	 rate number
   	<input type="text" name="rate">
   	length number
   	<input type="text" name="length">
   	rentduration
-  	<input type="text" name="rentalDuration"> -->
+  	<input type="text" name="rentalDuration"> 
   	replacecost
-  	<input type="text" name="replacementCost"> 
+  	<input type="text" name="replacementCost">
+  	langID
+  	<input type="text" name="langId"> 
   	<input type="submit" name="Get Film Data">					 
   	</form>
   	<a href="film.do" name=edit>edit a film</a>
