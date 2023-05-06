@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 
-
 @Component
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=US/Mountain";
@@ -484,8 +483,58 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public boolean saveFilm(int filmId, Film film) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "UPDATE actor SET first_name=?, last_name=? " + " WHERE id=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setLong(3, film.getReleaseYear());
+			stmt.setLong(4, film.getLangId());
+			stmt.setLong(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRate());
+			stmt.setLong(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getSpecialFeatures());
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				// Replace actor's film list
+				sql = "DELETE FROM film_actor WHERE actor_id = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, film.getFilmId());
+				updateCount = stmt.executeUpdate();
+				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+				stmt = conn.prepareStatement(sql);
+				for (Actor actor : film.getCast()) {
+					stmt.setInt(1, actor.getId());
+					stmt.setInt(2, film.getFilmId());
+					updateCount = stmt.executeUpdate();
+				}
+				conn.commit(); // COMMIT TRANSACTION
+
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} // ROLLBACK TRANSACTION ON ERROR
+				catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			return false;
+		}
+		try {
+			if (!conn.isClosed()) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
