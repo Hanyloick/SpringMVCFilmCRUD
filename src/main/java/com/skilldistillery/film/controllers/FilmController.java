@@ -91,11 +91,12 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "keyword.do", method = RequestMethod.GET)
-	public ModelAndView filmKeyword(String keyword) {
+	public ModelAndView filmKeyword(@RequestParam("keyword")String keyword) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Film> films = dao.findFilmsByKeyword(keyword);
-		modelAndView.addObject("filmList", films);
+		modelAndView.addObject("film", films);
 		modelAndView.setViewName("WEB-INF/keyword.jsp");
+		System.out.println(films);
 		return modelAndView;
 	}
 	
