@@ -9,10 +9,10 @@
 <title>Insert title here</title>
 <body>
 	<c:choose>
-		<c:when test="${! empty filmList}">
+		<c:when test="${! empty film}">
 
 			<ul>
-				<c:forEach items="${filmList}" var="film">
+				<c:forEach items="${film}" var="film">
 
 					<li>Film Id: ${film.filmId }</li>
 					<li>Title: ${film.title }</li>
