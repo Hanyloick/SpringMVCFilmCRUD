@@ -8,6 +8,7 @@
 </head>
 <body>
 <form action="film.do" method="POST">
+<input type="hidden" id="${film.filmId}" />
 <input type="text" name="${film.title}"/>
 <input type="text" name="${film.description}"/>
 <input type="text" name="${film.langId}"/>
