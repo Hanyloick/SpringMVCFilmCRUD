@@ -25,11 +25,12 @@
 		<input type="text" name="rentalDuration" />
 		<input type="submit" name="editfilm">
 	</form:form>
+	
 	<a href="index.html">Home</a>
-	<form:form action="deleteFilm.do" method="POST" modelAttribute="film">
-		<input type="hidden" name="filmId" value="${film.filmId}" />
-		<input type="submit" name="Delete Film"
-			value="Delete Film" />
-	</form:form>
+	
+	<form:form action = "filmDelete.do" method = "POST" modelAttribute="film">
+  	<input type = "hidden" name = "delete" value="${film.filmId}"/>
+  	<input type = "submit" value = "Delete Film"/>
+  	</form:form>
 </body>
 </html>

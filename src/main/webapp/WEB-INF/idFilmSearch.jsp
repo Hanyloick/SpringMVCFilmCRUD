@@ -19,7 +19,15 @@
 				<li>${film.releaseYear}</li>
 				<li>${film.length}</li>
 				<li>${film.replacementCost}</li>
+				<li>${film.category}</li>
 				<li>${film.langId}</li>
+				<li>${film.language }</li>
+				<c:forEach items='${film.cast}' var='actor'>
+					<li>${actor.firstName} ${actor.lastName}</li>
+					
+				</c:forEach>
+						
+				
 				
 			</ul>
 		</c:when>

@@ -87,19 +87,20 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film findFilmById(int filmId) {
 		Film film = null;
-		String sqlStaement = "SELECT * From film where id = ?"; 
+		String sqlStatement = "SELECT film.*, language.name FROM "
+				+ "film JOIN language on language.id = film.language_id " + "where film.id = ?";
 
+		String sqlStatement1 = "SELECT film.*, language.name, actor.*, category.name "
+				+ "FROM film JOIN film_actor on film_actor.film_id = film.id "
+				+ "JOIN actor on film_actor.actor_id = actor.id "
+				+ "JOIN film_category on film.id = film_category.film_id JOIN category on film_category.category_id = category.id "
+				+ "JOIN language ON film.language_id = language.id " + "WHERE film.id = ?";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-				PreparedStatement preparedStatement = connection.prepareStatement(sqlStaement);) {
-			//"SELECT film.*, language.name, actor.*, category.name "
-//					+ "FROM film JOIN film_actor on film_actor.film_id = film.id "
-//					+ "JOIN actor on film_actor.actor_id = actor.id "
-//					+ "JOIN film_category on film.id = film_category.film_id JOIN category on film_category.category_id = category.id "
-//					+ "JOIN language ON film.language_id = language.id " + "WHERE film.id = ?";
-			
+				PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);) {
+//				PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement1);) { 			
 			preparedStatement.setInt(1, filmId);
-			try(ResultSet resultSet = preparedStatement.executeQuery()) {
-				
+			try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
 				if (resultSet.next()) {
 					int id = resultSet.getInt("id");
 					String title = resultSet.getString("title");
@@ -112,15 +113,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					double replacementCost = resultSet.getDouble("replacement_cost");
 					String rating = resultSet.getString("rating");
 					String specialFeatures = resultSet.getString("special_features");
-//					String language = resultSet.getString("language.name");
-//					List<Actor> cast = findActorsByFilmId(id);
-//					String category = resultSet.getString("category.name");
+					String language = resultSet.getString("language.name");
+					List<Actor> cast = findActorsByFilmId(id);
+					String category = getCategory(id);
 					film = new Film(id, title, description, releaseYear, languageId, rentDur, rentalRate, length,
-							replacementCost, rating, specialFeatures);
+							replacementCost, rating, specialFeatures, language, cast, category);
 					System.out.println("***************************" + film);
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			connection.close();
@@ -129,6 +129,28 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 
 		return film;
+	}
+
+	public String getCategory(int filmId) {
+		String categoryName = "";
+		try {
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			String sqlStaement = "select category.name from category join film_category on film_category.category_id = category.id "
+					+ "join film on film_category.film_id = film.id "
+					+ "where film.id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlStaement);
+			preparedStatement.setInt(1, filmId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				categoryName = resultSet.getString("name");
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+		return categoryName;
 	}
 
 	@Override
@@ -446,7 +468,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setLong(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
 //			stmt.setString(9, inputFilm.getSpecialFeatures());
-			
+
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
@@ -454,7 +476,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.out.println("********************" + updateCount + "Added new Film to Database ");
 					int newFilmId = keys.getInt(1);
 					film.setFilmId(newFilmId);
-					System.out.println(newFilmId+ "+++++++++++++++++++++++++++");
+					System.out.println(newFilmId + "+++++++++++++++++++++++++++");
 					// call film getcast method, if not null and getcast.size is greater than 0
 					if (film.getCast() != null && film.getCast().size() > 0) {
 						// for insert statement
@@ -502,7 +524,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.setAutoCommit(false); // START TRANSACTION
 			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?, "
 					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=? WHERE id=?";
-			
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -527,7 +549,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 //					stmt.setInt(2, film.getFilmId());
 //					updateCount = stmt.executeUpdate();
 //				}
-				conn.commit(); // COMMIT TRANSACTION
+			conn.commit(); // COMMIT TRANSACTION
 //
 //			}
 		} catch (SQLException sqle) {

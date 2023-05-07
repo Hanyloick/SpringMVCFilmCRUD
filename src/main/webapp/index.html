@@ -7,17 +7,40 @@
 </head>
 <body>
 	<h1>Spring MVC Film Site</h1>
-	 <form action="findById.do" method="GET">
+	 <form action="film.do" method="GET">
     ID:   
     <input type="text" name="id"/> 
     <input type="submit" value="Get Film Data" /><br>
   	</form>
-  	<a href="createFilm.html">ADD A Film</a>
+  	<form action="film.do" method="POST">
+  	ADD A Film
+  	Title:
+  	<input type="text" name="title"><br>
+  	Description:
+  	<input type="text" name="description"><br>
+  	Release Year:
+  	<input type="text" name="releaseYear"><br>
+  	 Rate number:
+  	<input type="text" name="rate"><br>
+  	Length number:
+  	<input type="text" name="length"><br>
+  	Rent Duration:
+  	<input type="text" name="rentalDuration"><br>
+  	Replacement cost:
+  	<input type="text" name="replacementCost"><br>
+  	Language Id:
+  	<input type="text" name="langId"><br>
+  	<input type="submit" name="Get Film Data">					 
+  	</form>
   	
   	Search for a film:
   <form action= "keyword.do"  method="GET">
 <input type = "text" name = "search"><br>
 <input type = "submit" value= "Search Film"/><br>
   </form>
+
+  	
+  	
+
 </body>
 </html>

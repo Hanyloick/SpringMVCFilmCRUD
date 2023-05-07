@@ -77,6 +77,7 @@ public class FilmController {
 	@RequestMapping(path = "filmDelete.do", method = RequestMethod.POST)
 	public ModelAndView filmDelete(@RequestParam("delete") int filmId, RedirectAttributes redir) {
 		ModelAndView modelAndView = new ModelAndView();
+		System.out.println("in delete");
 		dao.deleteFilm(filmId);
 		//redir.addFlashAttribute("film", film);
 		modelAndView.setViewName("redirect:filmDeleted.do");

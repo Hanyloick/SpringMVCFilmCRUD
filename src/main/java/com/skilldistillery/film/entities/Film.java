@@ -111,6 +111,33 @@ public class Film {
 		this.category = category;
 	}
 
+	public Film(int filmId, 
+			String title, 
+			String description, 
+			short releaseYear, 
+			int languageId, 
+			int rentDur,
+			double rentalRate, 
+			int length, 
+			double replacementCost, 
+			String rating, 
+			String specialFeatures,
+			String language, List<Actor> cast) {
+		this.filmId = filmId;
+		this.title = title;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.langId = languageId;
+		this.rentalDuration = rentDur;
+		this.rate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
+		this.rating = rating;
+		this.specialFeatures = specialFeatures;
+		this.language = language;
+		this.cast = cast;
+	}
+
 	public String getCategory() {
 		return category;
 	}
