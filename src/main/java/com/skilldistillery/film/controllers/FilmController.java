@@ -25,15 +25,15 @@ public class FilmController {
 
 	}
 	
-	@RequestMapping(path = { "film.do" }, params = "id", method = RequestMethod.GET)
+	@RequestMapping(path = { "findById.do" }, params = "id", method = RequestMethod.GET)
 	public ModelAndView getFilmById(@RequestParam("id") String input) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("WEB-INF/singlefilm.jsp");
+		modelAndView.setViewName("WEB-INF/idFilmSearch.jsp");
 		modelAndView.addObject("film", dao.findFilmById(Integer.parseInt(input)));
 		return modelAndView;
 	}
 	
-	@RequestMapping(path = "film.do", method = RequestMethod.POST)
+	@RequestMapping(path = "createFilm.do", method = RequestMethod.POST)
 	public ModelAndView newFilm(Film film, RedirectAttributes redir) {
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -41,7 +41,7 @@ public class FilmController {
 		dao.createFilm(film);
 		
 		redir.addFlashAttribute("film", film);
-		
+		System.out.println("in create film controller method");
 		modelAndView.setViewName("redirect:filmAdded.do"); // redirect to new mapping
 		
 		return modelAndView;
@@ -51,23 +51,19 @@ public class FilmController {
 			method = RequestMethod.GET)
 	public ModelAndView filmAdded() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("WEB-INF/singlefilm.jsp");
+		modelAndView.setViewName("WEB-INF/idFilmSearch.jsp");
 		return modelAndView;
 	}
 	
 	@RequestMapping(path = "editfilm.do", method = RequestMethod.POST)
-	public ModelAndView editFilm(Film film, RedirectAttributes redir) {
+	public String editFilm(Film film, RedirectAttributes redir) {
+		System.out.println("in edit film pre save in controller");
 		
-		ModelAndView modelAndView = new ModelAndView();
-
 		dao.saveFilm(film.getFilmId(), film);
 		
 		redir.addFlashAttribute("film", film);
-		
-		modelAndView.setViewName("redirect:filmEdited.do"); 
-		// redirect to new mapping
-		
-		return modelAndView;
+		System.out.println(film + "in edit film controller post save");
+		return "redirect:filmEdited.do";
 	}
 	
 	@RequestMapping(path = "filmEdited.do",

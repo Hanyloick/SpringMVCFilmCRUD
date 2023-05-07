@@ -512,24 +512,24 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setDouble(6, film.getRate());
 			stmt.setLong(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
-//			stmt.setString(9, film.getSpecialFeatures());
+			stmt.setInt(9, film.getFilmId());
 			int updateCount = stmt.executeUpdate();
-			if (updateCount == 1) {
-				// Replace actor's film list
-			
-				stmt = conn.prepareStatement(sql);
-				stmt.setInt(1, film.getFilmId());
-				updateCount = stmt.executeUpdate();
-			
-				stmt = conn.prepareStatement(sql);
-				for (Actor actor : film.getCast()) {
-					stmt.setInt(1, actor.getId());
-					stmt.setInt(2, film.getFilmId());
-					updateCount = stmt.executeUpdate();
-				}
+//			if (updateCount == 1) {
+//				// Replace actor's film list
+//			
+//				stmt = conn.prepareStatement(sql);
+//				stmt.setInt(1, film.getFilmId());
+//				updateCount = stmt.executeUpdate();
+//			
+//				stmt = conn.prepareStatement(sql);
+//				for (Actor actor : film.getCast()) {
+//					stmt.setInt(1, actor.getId());
+//					stmt.setInt(2, film.getFilmId());
+//					updateCount = stmt.executeUpdate();
+//				}
 				conn.commit(); // COMMIT TRANSACTION
-
-			}
+//
+//			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,7 +27,12 @@
 			<p>No film found</p>
 		</c:otherwise>
 	</c:choose>
+	<form action="editfilm.do" method="POST">
+        <br>
+        <button type="submit">Edit Film</button>
+        <input type="hidden" name="filmId" value="${film.filmId}" />
+    </form>
+	
 	<a href="index.html">back home</a>
-	<a href="editfilm.html">edit film</a>
 </body>
 </html>

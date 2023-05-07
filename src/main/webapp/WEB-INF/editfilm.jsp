@@ -1,20 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Edit Film</title>
 </head>
 <body>
-<form action="film.do" method="POST">
-<input type="hidden" id="${film.filmId}" />
-<input type="text" name="${film.title}"/>
-<input type="text" name="${film.description}"/>
-<input type="text" name="${film.langId}"/>
-<input type="text" name="${film.rating}"/>
-<input type="submit" name="editfilm">
-
-</form>
+	<form:form action="editfilm.do" method="POST" modelAttribute="film">
+		<input type="hidden" value="${film.filmId}" name="filmId" />
+		<label for="title">Title</label>
+		<input type="text" name="title" value="${film.title}" />
+		<label for="Description">Description</label>
+		<input type="text" name="description" />
+		<label for="Language ID">Language ID</label>
+		<input type="text" name="langId" />
+		<label for="Rating">Rating</label>
+		<input type="text" name="rating" />
+		<label for="Rental Rate">Rental Rate</label>
+		<input type="text" name="rate" />
+		<label for="Rental Duration">Rental Duration</label>
+		<input type="text" name="rentalDuration" />
+		<input type="submit" name="editfilm">
+	</form:form>
+	<a href="index.html">Home</a>
+	<form:form action="deleteFilm.do" method="POST" modelAttribute="film">
+		<input type="hidden" name="filmId" value="${film.filmId}" />
+		<input type="submit" name="Delete Film"
+			value="Delete Film" />
+	</form:form>
 </body>
 </html>
