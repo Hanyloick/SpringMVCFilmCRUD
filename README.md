@@ -18,7 +18,8 @@ If the user chooses to edit a film, all fields for the film table may be edited 
 are displayed to be edited. in the event of a failure the user will recieve an error.
 if the edit is successful the new film will be displayed.<br>
 If the user decides to delete a film, the user will be alerted if the operation was successful or not<br>
-an<br>
+and can return to the Landing site by clicking a link.<br>
+<br>
 
 
 
@@ -31,7 +32,8 @@ an<br>
 -MySQL<br>
 -Terminal<br>
 -Github<br>
--SpringToolSuite4<br><br>
+-SpringToolSuite4<br>
+<br>
 
 
 
