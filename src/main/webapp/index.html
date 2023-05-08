@@ -3,24 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Spring MVC Film Site</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
-	<h1>Spring MVC Film Site</h1>
-	 <form action="findById.do" method="GET">
-    ID:   
-    <input type="text" name="id"/> 
-    <input type="submit" value="Get Film Data" /><br>
-  	</form>
-  	
-  	<form action="makefilm.do">
-  	<input type="submit" value="Add A Film"/>
-  	</form>
-  	
-  	Search for a film:
-  <form action= "keyword.do"  method="GET">
-<input type = "text" name = "keyword"><br>
-<input type = "submit" value= "Search Film"/><br>
-  </form>
+
+	<div class="container">
+		<h1>Spring MVC Film Site</h1><br><br>
+		<form action="findById.do" method="GET">
+	   		<label for="id">ID: </label>    
+	    	<input type="text" name="id"/> 
+	    	<input type="submit" value="Get Film Data" /><br><br>
+	  	</form>
+	  	
+	  	<form action="makefilm.do">
+	  		<input type="submit" value="Add A Film"/>
+	  	</form><br><br>
+	  	
+	  	<label for="search">Search for a film:</label>
+	  	<form action= "keyword.do"  method="GET">
+			<input type = "text" name = "keyword"><br>
+			<input type = "submit" value= "Search Film"/><br>
+		</form>
+	</div>
+ 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>	
 </body>
 </html>

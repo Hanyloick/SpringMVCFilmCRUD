@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Edit Film</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
 	<form:form action="updateFilm.do" method="POST" modelAttribute="film">
@@ -43,5 +45,6 @@
   	<input type = "hidden" name = "delete" value="${film.filmId}"/>
   	<input type = "submit" value = "Delete Film"/>
   	</form:form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>  	
 </body>
 </html>
