@@ -1,6 +1,5 @@
 # Spring MVC Film C.R.U.D. Project
-<br>
-Developers: Tia Wright, Patrick Hansen
+
 <br>
 #Overview 
 <br>
@@ -50,6 +49,10 @@ Working in Full Stack helped highlight the uses of:<br>
 - COMMUNICATION when working in a team environment<br>
 - JDBC Database Connectivity<br>
 - Command Objects. <br>
+<br>
+<br>
+<br>
+Developers: Tia Wright, Patrick Hansen
 
 
 
