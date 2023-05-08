@@ -1,5 +1,5 @@
 # Spring MVC Film C.R.U.D. Project
-Developers: Tia Wright, Patrick Hansen
+Developers: Tia Wright, Patrick Hansen<br>
 #Overview 
 MVCFilmSite is a full stack application that uses CRUD concepts to allow the user of our application to create, read, update, and/or delete films in our database.<br>
 
