@@ -59,33 +59,6 @@ public class FilmController {
 		return modelAndView;
 	}
 	
-//	@RequestMapping(path = "editfilm.do", method = RequestMethod.POST)
-//	public ModelAndView editFilm(
-//			@RequestParam("filmId") String id,
-//			@RequestParam("title") String title,
-//			@RequestParam("description") String description,
-//			@RequestParam("length") String length,
-//			@RequestParam("langId") String langId,
-//			@RequestParam("rating") String rating,
-//			@RequestParam("rate") String rate,
-//			@RequestParam("rentalDuration") String rentalDuration,
-//			@RequestParam("editfilm") String editfilm, Film film, RedirectAttributes redir) {
-//		film.setFilmId(Integer.parseInt(id));
-//		film.setTitle(title);
-//		film.setDescription(description);
-//		film.setLangId(Integer.parseInt(langId));
-//		film.setLength(Integer.parseInt(length));
-//		film.setRate(Double.parseDouble(rate));
-//		film.setRating(rating);
-//		film.setRentalDuration(Integer.parseInt(rentalDuration));
-//		dao.saveFilm(film.getFilmId(), film);		
-//		redir.addFlashAttribute("film", film);
-//		System.out.println(film + "in edit film controller post save");
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.addObject("film", film);
-//		modelAndView.setViewName("confirmation.jsp");
-//		return modelAndView;
-//	}
 	
 	
 	
@@ -99,24 +72,13 @@ public class FilmController {
 		return modelAndView;
 	}
 	
-//	@RequestMapping(path ="updateFilm.do", params="filmId", method = RequestMethod.POST)
-//	public ModelAndView updateFilm(@RequestParam("updateFilm") String filmId, @ModelAttribute("film") Film film,
-//		BindingResult result) {
-//		System.out.println("results: " + result);
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.addObject("film", film);
-//		dao.saveFilm(film.getFilmId(), film);
-//		modelAndView.setViewName("index.html");
-//		return modelAndView;
-//	}
-	
 	@RequestMapping(path ="updateFilm.do", params="filmId", method = RequestMethod.POST)
 	public ModelAndView updateFilm(@RequestParam("updateFilm") String filmId, @ModelAttribute("film") Film film) {
 		System.out.println("results: " + film);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("film", film);
 		dao.saveFilm(film.getFilmId(), film);
-		modelAndView.setViewName("index.html");
+		modelAndView.setViewName("WEB-INF/confirmation.jsp");
 		return modelAndView;
 	}
 	@RequestMapping(path = "filmDelete.do", method = RequestMethod.POST)

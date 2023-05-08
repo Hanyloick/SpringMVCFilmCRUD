@@ -8,11 +8,31 @@
 <title>confirm</title>
 </head>
 <body>
-	<c:if test="${! empty film}"/>
-	<h1>ahh</h1>
-	<c:otherwise>
-	<p>Save failed</p>
-	</c:otherwise>	
+	<c:choose>
+		<c:when test="${! empty film}">
+			<ul>
+				<li>${film.title}</li>
+				<li>${film.rating}</li>
+				<li>${film.description}</li>
+				<li>${film.releaseYear}</li>
+				<li>${film.length}</li>
+				<li>${film.replacementCost}</li>
+				<li>${film.category}</li>
+				<li>${film.langId}</li>
+				<li>${film.language }</li>
+				<c:forEach items='${film.cast}' var='actor'>
+					<li>${actor.firstName} ${actor.lastName}</li>
+					
+				</c:forEach>
+						
+				
+				
+			</ul>
+		</c:when>
+		<c:otherwise>
+			<p>Your edit was unsuccessful</p>
+		</c:otherwise>
+		</c:choose>	
 	<a href="index.html">Home</a>
 </body>
 </html>
