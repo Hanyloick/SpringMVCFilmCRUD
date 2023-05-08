@@ -202,7 +202,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String title = resultSet.getString("title");
-				String descritpion = resultSet.getString("description");
+				String description = resultSet.getString("description");
 				short releaseYear = resultSet.getShort("release_year");
 				int languageId = resultSet.getInt("language_id");
 				int rentDur = resultSet.getInt("rental_duration");
@@ -211,8 +211,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				double replacementCost = resultSet.getDouble("replacement_cost");
 				String rating = resultSet.getString("rating");
 				String specialFeatures = resultSet.getString("special_features");
-				Film film = new Film(id, title, descritpion, releaseYear, languageId, rentDur, rentalRate, length,
-						replacementCost, rating, specialFeatures);
+				String language = getLanguageName(id);
+				List<Actor> cast = findActorsByFilmId(id);
+				String category = getCategory(id);
+				Film film = new Film(id, title, description, releaseYear, languageId, rentDur, rentalRate, length,
+						replacementCost, rating, specialFeatures, language, cast, category);
 				films.add(film);
 
 			}
@@ -225,6 +228,28 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		return films;
 	}
+	
+	@Override
+	public String getLanguageName(int filmId) {
+		String languageName = "";
+		try {
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			String sqlStaement = "select language.name from language join film on film.language_id = language.id where film.id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlStaement);
+			preparedStatement.setInt(1, filmId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				languageName = resultSet.getString("name");
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+		return languageName;
+	}
+	
 
 	@Override
 	public List<Film> findCopiesCondition(Film film) {
@@ -536,22 +561,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setInt(9, film.getFilmId());
 			int updateCount = stmt.executeUpdate();
-//			if (updateCount == 1) {
-//				// Replace actor's film list
-//			
-//				stmt = conn.prepareStatement(sql);
-//				stmt.setInt(1, film.getFilmId());
-//				updateCount = stmt.executeUpdate();
-//			
-//				stmt = conn.prepareStatement(sql);
-//				for (Actor actor : film.getCast()) {
-//					stmt.setInt(1, actor.getId());
-//					stmt.setInt(2, film.getFilmId());
-//					updateCount = stmt.executeUpdate();
-//				}
+
 			conn.commit(); // COMMIT TRANSACTION
-//
-//			}
+
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {

@@ -32,4 +32,6 @@ public interface DatabaseAccessor {
 	
 	public boolean deleteFilm(int filmId);
 
+	String getLanguageName(int filmId);
+
 }

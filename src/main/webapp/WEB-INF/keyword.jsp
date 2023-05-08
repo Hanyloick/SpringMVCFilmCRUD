@@ -24,6 +24,15 @@
 					<li>Replacement Cost: ${film.replacementCost}</li>
 					<li>Language ID: ${film.langId}</li>
 					<li>Rate: ${film.rate }</li>
+					<c:forEach items='${film.cast}' var='actor'>
+						<li>${actor.firstName} ${actor.lastName}</li>						
+					</c:forEach>
+					<c:if test="${! empty film}">
+						<form action="editFilm.do" method="GET">
+	        			<button type="submit">Edit Film</button>
+	        			<input type="hidden" name="filmId" value="${film.filmId}" />
+	    </form>
+		</c:if>
 				</c:forEach>
 			</ul>
 		</c:when>
@@ -32,7 +41,7 @@
  </c:otherwise>
 	</c:choose>
 	<a href = "index.html">back home</a>
-
+	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
