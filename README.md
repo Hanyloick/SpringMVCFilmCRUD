@@ -1,8 +1,11 @@
 # Spring MVC Film C.R.U.D. Project
-Developers: Tia Wright, Patrick Hansen<br>
+<br>
+Developers: Tia Wright, Patrick Hansen
+<br>
 #Overview 
+<br>
 MVCFilmSite is a full stack application that uses CRUD concepts to allow the user of our application to create, read, update, and/or delete films in our database.<br>
-
+<br>
 On the Landing Site the user may choose to enter an ID to search for a specific film,<br>
 add a new film to the Relational Database or Search all film titles and descriptions.<br>
 If a match is not found for either Searches the user is notified that no results are present<br>
@@ -14,13 +17,13 @@ If the user chooses to edit a film, all fields for the film table may be edited 
 are displayed to be edited. in the event of a failure the user will recieve an error.
 if the edit is successful the new film will be displayed.<br>
 If the user decides to delete a film, the user will be alerted if the operation was successful or not<br>
-and allowed to return to Landing page.
+and allowed to return to Landing page.<br>
 
 
 
 
 #Technologies Used 
-
+<br>
 -Jacarta Server Pages/HTML/XML<br>
 -JAVA-OOP<br>
 -OOP<br>
@@ -33,6 +36,7 @@ and allowed to return to Landing page.
 
 
 #Lessons Learned
+<br>
 During this project we learned how to utilize CRUD operations and jsp files to manipulate data in a<br>
 MySQL relational Database.<br>
 One of our biggest problems was figuring out how to properly map the url so all key reference values<br>
