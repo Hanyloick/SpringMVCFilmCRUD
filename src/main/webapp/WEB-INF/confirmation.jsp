@@ -5,10 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ERROR</title>
+<title>confirm</title>
 </head>
 <body>
-	<h1>YOUR REQUEST FAILED</h1>
+	<c:if test="${! empty film}"/>
+	<h1>ahh</h1>
+	<c:otherwise>
+	<p>Save failed</p>
+	</c:otherwise>	
 	<a href="index.html">Home</a>
 </body>
 </html>

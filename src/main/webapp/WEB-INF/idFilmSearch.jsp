@@ -35,12 +35,13 @@
 			<p>No film found</p>
 		</c:otherwise>
 	</c:choose>
-	<form action="editfilm.do" method="POST">
+	<c:if test="${! empty film}">
+	<form action="editFilm.do" method="GET">
         <br>
         <button type="submit">Edit Film</button>
         <input type="hidden" name="filmId" value="${film.filmId}" />
     </form>
-	
+	</c:if>
 	<a href="index.html">back home</a>
 </body>
 </html>
