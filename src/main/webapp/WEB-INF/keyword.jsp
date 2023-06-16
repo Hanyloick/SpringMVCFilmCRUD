@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,36 +10,69 @@
 <body>
 	<c:choose>
 		<c:when test="${! empty film}">
-
-			<ul>
+			<table class="table">
 				<c:forEach items="${film}" var="film">
-
-					<li>Film Id: ${film.filmId }</li>
-					<li>Title: ${film.title }</li>
-					<li>Description: ${film.description }</li>
-					<li>Release Year: ${film.releaseYear }</li>
-					<li>Length: ${film.length}</li>
-					<li>Replacement Cost: ${film.replacementCost}</li>
-					<li>Language ID: ${film.langId}</li>
-					<li>Rate: ${film.rate }</li>
-					<c:forEach items='${film.cast}' var='actor'>
-						<li>${actor.firstName} ${actor.lastName}</li>						
-					</c:forEach>
+					<tr>
+						<td>Film Id:</td>
+						<td>${film.filmId}</td>
+					</tr>
+					<tr>
+						<td>Title:</td>
+						<td>${film.title}</td>
+					</tr>
+					<tr>
+						<td>Description:</td>
+						<td>${film.description}</td>
+					</tr>
+					<tr>
+						<td>Release Year:</td>
+						<td>${film.releaseYear}</td>
+					</tr>
+					<tr>
+						<td>Length:</td>
+						<td>${film.length}</td>
+					</tr>
+					<tr>
+						<td>Replacement Cost:</td>
+						<td>${film.replacementCost}</td>
+					</tr>
+					<tr>
+						<td>Language ID:</td>
+						<td>${film.langId}</td>
+					</tr>
+					<tr>
+						<td>Rate:</td>
+						<td>${film.rate}</td>
+					</tr>
+					<tr>
+						<td>Cast:</td>
+						<td>
+							<ul>
+								<c:forEach items="${film.cast}" var="actor">
+									<li>${actor.firstName} ${actor.lastName}</li>						
+								</c:forEach>
+							</ul>
+						</td>
+					</tr>
 					<c:if test="${! empty film}">
-						<form action="editFilm.do" method="GET">
-	        			<button type="submit">Edit Film</button>
-	        			<input type="hidden" name="filmId" value="${film.filmId}" />
-	    </form>
-		</c:if>
+						<tr>
+							<td>
+								<form action="editFilm.do" method="GET">
+	        						<button class="btn" type="submit">Edit Film</button>
+	        						<input type="hidden" name="filmId" value="${film.filmId}" />
+	    						</form>
+    						</td>
+    					</tr>	
+					</c:if>
 				</c:forEach>
-			</ul>
+			</table>
 		</c:when>
 		<c:otherwise>
- <p>No film found</p>
- </c:otherwise>
+			<p>No film found</p>
+		</c:otherwise>
 	</c:choose>
-	<a href = "index.html">back home</a>
+	<a href="index.html"><button class="btn">back home</button></a>
 	
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>

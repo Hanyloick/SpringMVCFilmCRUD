@@ -13,7 +13,7 @@
 <body>
 
 <h1>Your request was successful.</h1>
-<a href= "index.html">home</a>
+<a href= "index.html"><button class="btn btn-outline-success">home</button></a>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>

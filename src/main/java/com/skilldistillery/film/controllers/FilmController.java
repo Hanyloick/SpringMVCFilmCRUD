@@ -62,8 +62,7 @@ public class FilmController {
 	
 	
 	
-	@RequestMapping(path = "editFilm.do",
-			method = RequestMethod.GET)
+	@RequestMapping(path = "editFilm.do", method = RequestMethod.GET)
 	public ModelAndView filmEdited(Film film) {
 		ModelAndView modelAndView = new ModelAndView();
 		film = dao.findFilmById(film.getFilmId());
